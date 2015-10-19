@@ -1,1 +1,2658 @@
 Created by PLY version 3.8 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    FT
+    WHITESPACECOMMENT
+    DELIMITER
+    SYSTEM
+    OP
+
+Grammar
+
+Rule 0     S' -> goal
+Rule 1     goal -> mainclass declaration_star
+Rule 2     classdeclaration -> CLASS identifier optional_extends LBRACE classbody RBRACE
+Rule 3     classbody -> vardeclaration_star
+Rule 4     classbody -> methoddeclaration_star
+Rule 5     classbody -> vardeclaration_star methoddeclaration_star
+Rule 6     declaration_star -> classdeclaration declaration_star
+Rule 7     declaration_star -> empty
+Rule 8     mainclass -> CLASS identifier LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET identifier RPAREN LBRACE statement RBRACE RBRACE
+Rule 9     optional_extends -> EXTENDS identifier
+Rule 10    optional_extends -> empty
+Rule 11    vardeclaration -> type identifier SEMICOLON
+Rule 12    vardeclaration_star -> vardeclaration vardeclaration_star
+Rule 13    vardeclaration_star -> empty
+Rule 14    methoddeclaration -> PUBLIC type identifier LPAREN type identifier argument_star_opt RPAREN LBRACE methodbody RETURN exp SEMICOLON RBRACE
+Rule 15    methodbody -> statement_star
+Rule 16    methodbody -> vardeclaration_star
+Rule 17    methodbody -> vardeclaration_star statement_star
+Rule 18    methoddeclaration_star -> methoddeclaration methoddeclaration_star
+Rule 19    methoddeclaration_star -> empty
+Rule 20    type -> INT LBRACKET RBRACKET
+Rule 21    type -> BOOLEAN
+Rule 22    type -> INT
+Rule 23    type -> identifier
+Rule 24    argument_star_opt -> COMMA type identifier
+Rule 25    argument_star_opt -> empty
+Rule 26    statement -> LBRACE statement_star RBRACE
+Rule 27    statement -> IF LPAREN exp RPAREN statement ELSE statement
+Rule 28    statement -> WHILE LPAREN exp RPAREN statement
+Rule 29    statement -> SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON
+Rule 30    statement -> identifier ATTR exp SEMICOLON
+Rule 31    statement -> identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON
+Rule 32    statement_star -> statement statement_star
+Rule 33    statement_star -> empty
+Rule 34    exp -> exp AND exp
+Rule 35    exp -> exp LESSTHAN exp
+Rule 36    exp -> exp PLUS exp
+Rule 37    exp -> exp MINUS exp
+Rule 38    exp -> exp TIMES exp
+Rule 39    exp -> exp LBRACKET exp RBRACKET
+Rule 40    exp -> exp DOT LENGTH
+Rule 41    exp -> exp DOT identifier LPAREN exp opt_exp RPAREN
+Rule 42    exp -> INTEGER
+Rule 43    exp -> TRUE
+Rule 44    exp -> FALSE
+Rule 45    exp -> identifier
+Rule 46    exp -> THIS
+Rule 47    exp -> NEW INT LBRACKET exp RBRACKET
+Rule 48    exp -> NEW identifier LPAREN RPAREN
+Rule 49    exp -> NOT exp
+Rule 50    exp -> LPAREN exp RPAREN
+Rule 51    opt_exp -> COMMA exp opt_exp
+Rule 52    opt_exp -> empty
+Rule 53    identifier -> IDENTIFIER
+Rule 54    empty -> <empty>
+
+Terminals, with rules where they appear
+
+AND                  : 34
+ATTR                 : 30 31
+BOOLEAN              : 21
+CLASS                : 2 8
+COMMA                : 24 51
+DELIMITER            : 
+DOT                  : 40 41
+ELSE                 : 27
+EXTENDS              : 9
+FALSE                : 44
+FT                   : 
+IDENTIFIER           : 53
+IF                   : 27
+INT                  : 20 22 47
+INTEGER              : 42
+LBRACE               : 2 8 8 14 26
+LBRACKET             : 8 20 31 39 47
+LENGTH               : 40
+LESSTHAN             : 35
+LPAREN               : 8 14 27 28 29 41 48 50
+MAIN                 : 8
+MINUS                : 37
+NEW                  : 47 48
+NOT                  : 49
+OP                   : 
+PLUS                 : 36
+PUBLIC               : 8 14
+RBRACE               : 2 8 8 14 26
+RBRACKET             : 8 20 31 39 47
+RETURN               : 14
+RPAREN               : 8 14 27 28 29 41 48 50
+SEMICOLON            : 11 14 29 30 31
+STATIC               : 8
+STRING               : 8
+SYSTEM               : 
+SYSTEM_PRINTLN       : 29
+THIS                 : 46
+TIMES                : 38
+TRUE                 : 43
+VOID                 : 8
+WHILE                : 28
+WHITESPACECOMMENT    : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+argument_star_opt    : 14
+classbody            : 2
+classdeclaration     : 6
+declaration_star     : 1 6
+empty                : 7 10 13 19 25 33 52
+exp                  : 14 27 28 29 30 31 31 34 34 35 35 36 36 37 37 38 38 39 39 40 41 41 47 49 50 51
+goal                 : 0
+identifier           : 2 8 8 9 11 14 14 23 24 30 31 41 45 48
+mainclass            : 1
+methodbody           : 14
+methoddeclaration    : 18
+methoddeclaration_star : 4 5 18
+opt_exp              : 41 51
+optional_extends     : 2
+statement            : 8 27 27 28 32
+statement_star       : 15 17 26 32
+type                 : 11 14 14 24
+vardeclaration       : 12
+vardeclaration_star  : 3 5 12 16 17
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . goal
+    (1) goal -> . mainclass declaration_star
+    (8) mainclass -> . CLASS identifier LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET identifier RPAREN LBRACE statement RBRACE RBRACE
+
+    CLASS           shift and go to state 3
+
+    mainclass                      shift and go to state 2
+    goal                           shift and go to state 1
+
+state 1
+
+    (0) S' -> goal .
+
+
+
+state 2
+
+    (1) goal -> mainclass . declaration_star
+    (6) declaration_star -> . classdeclaration declaration_star
+    (7) declaration_star -> . empty
+    (2) classdeclaration -> . CLASS identifier optional_extends LBRACE classbody RBRACE
+    (54) empty -> .
+
+    CLASS           shift and go to state 6
+    $end            reduce using rule 54 (empty -> .)
+
+    classdeclaration               shift and go to state 4
+    declaration_star               shift and go to state 5
+    empty                          shift and go to state 7
+
+state 3
+
+    (8) mainclass -> CLASS . identifier LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET identifier RPAREN LBRACE statement RBRACE RBRACE
+    (53) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 9
+
+state 4
+
+    (6) declaration_star -> classdeclaration . declaration_star
+    (6) declaration_star -> . classdeclaration declaration_star
+    (7) declaration_star -> . empty
+    (2) classdeclaration -> . CLASS identifier optional_extends LBRACE classbody RBRACE
+    (54) empty -> .
+
+    CLASS           shift and go to state 6
+    $end            reduce using rule 54 (empty -> .)
+
+    classdeclaration               shift and go to state 4
+    declaration_star               shift and go to state 10
+    empty                          shift and go to state 7
+
+state 5
+
+    (1) goal -> mainclass declaration_star .
+
+    $end            reduce using rule 1 (goal -> mainclass declaration_star .)
+
+
+state 6
+
+    (2) classdeclaration -> CLASS . identifier optional_extends LBRACE classbody RBRACE
+    (53) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 11
+
+state 7
+
+    (7) declaration_star -> empty .
+
+    $end            reduce using rule 7 (declaration_star -> empty .)
+
+
+state 8
+
+    (53) identifier -> IDENTIFIER .
+
+    AND             reduce using rule 53 (identifier -> IDENTIFIER .)
+    LESSTHAN        reduce using rule 53 (identifier -> IDENTIFIER .)
+    PLUS            reduce using rule 53 (identifier -> IDENTIFIER .)
+    MINUS           reduce using rule 53 (identifier -> IDENTIFIER .)
+    TIMES           reduce using rule 53 (identifier -> IDENTIFIER .)
+    LBRACKET        reduce using rule 53 (identifier -> IDENTIFIER .)
+    DOT             reduce using rule 53 (identifier -> IDENTIFIER .)
+    SEMICOLON       reduce using rule 53 (identifier -> IDENTIFIER .)
+    RPAREN          reduce using rule 53 (identifier -> IDENTIFIER .)
+    RBRACKET        reduce using rule 53 (identifier -> IDENTIFIER .)
+    COMMA           reduce using rule 53 (identifier -> IDENTIFIER .)
+    EXTENDS         reduce using rule 53 (identifier -> IDENTIFIER .)
+    LBRACE          reduce using rule 53 (identifier -> IDENTIFIER .)
+    ATTR            reduce using rule 53 (identifier -> IDENTIFIER .)
+    LPAREN          reduce using rule 53 (identifier -> IDENTIFIER .)
+    IDENTIFIER      reduce using rule 53 (identifier -> IDENTIFIER .)
+
+
+state 9
+
+    (8) mainclass -> CLASS identifier . LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET identifier RPAREN LBRACE statement RBRACE RBRACE
+
+    LBRACE          shift and go to state 12
+
+
+state 10
+
+    (6) declaration_star -> classdeclaration declaration_star .
+
+    $end            reduce using rule 6 (declaration_star -> classdeclaration declaration_star .)
+
+
+state 11
+
+    (2) classdeclaration -> CLASS identifier . optional_extends LBRACE classbody RBRACE
+    (9) optional_extends -> . EXTENDS identifier
+    (10) optional_extends -> . empty
+    (54) empty -> .
+
+    EXTENDS         shift and go to state 13
+    LBRACE          reduce using rule 54 (empty -> .)
+
+    empty                          shift and go to state 15
+    optional_extends               shift and go to state 14
+
+state 12
+
+    (8) mainclass -> CLASS identifier LBRACE . PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET identifier RPAREN LBRACE statement RBRACE RBRACE
+
+    PUBLIC          shift and go to state 16
+
+
+state 13
+
+    (9) optional_extends -> EXTENDS . identifier
+    (53) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 17
+
+state 14
+
+    (2) classdeclaration -> CLASS identifier optional_extends . LBRACE classbody RBRACE
+
+    LBRACE          shift and go to state 18
+
+
+state 15
+
+    (10) optional_extends -> empty .
+
+    LBRACE          reduce using rule 10 (optional_extends -> empty .)
+
+
+state 16
+
+    (8) mainclass -> CLASS identifier LBRACE PUBLIC . STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET identifier RPAREN LBRACE statement RBRACE RBRACE
+
+    STATIC          shift and go to state 19
+
+
+state 17
+
+    (9) optional_extends -> EXTENDS identifier .
+
+    LBRACE          reduce using rule 9 (optional_extends -> EXTENDS identifier .)
+
+
+state 18
+
+    (2) classdeclaration -> CLASS identifier optional_extends LBRACE . classbody RBRACE
+    (3) classbody -> . vardeclaration_star
+    (4) classbody -> . methoddeclaration_star
+    (5) classbody -> . vardeclaration_star methoddeclaration_star
+    (12) vardeclaration_star -> . vardeclaration vardeclaration_star
+    (13) vardeclaration_star -> . empty
+    (18) methoddeclaration_star -> . methoddeclaration methoddeclaration_star
+    (19) methoddeclaration_star -> . empty
+    (11) vardeclaration -> . type identifier SEMICOLON
+    (54) empty -> .
+    (14) methoddeclaration -> . PUBLIC type identifier LPAREN type identifier argument_star_opt RPAREN LBRACE methodbody RETURN exp SEMICOLON RBRACE
+    (20) type -> . INT LBRACKET RBRACKET
+    (21) type -> . BOOLEAN
+    (22) type -> . INT
+    (23) type -> . identifier
+    (53) identifier -> . IDENTIFIER
+
+  ! shift/reduce conflict for PUBLIC resolved as shift
+    RBRACE          reduce using rule 54 (empty -> .)
+    PUBLIC          shift and go to state 30
+    INT             shift and go to state 26
+    BOOLEAN         shift and go to state 27
+    IDENTIFIER      shift and go to state 8
+
+  ! PUBLIC          [ reduce using rule 54 (empty -> .) ]
+
+    vardeclaration                 shift and go to state 25
+    type                           shift and go to state 23
+    vardeclaration_star            shift and go to state 20
+    methoddeclaration_star         shift and go to state 21
+    classbody                      shift and go to state 22
+    identifier                     shift and go to state 28
+    methoddeclaration              shift and go to state 29
+    empty                          shift and go to state 24
+
+state 19
+
+    (8) mainclass -> CLASS identifier LBRACE PUBLIC STATIC . VOID MAIN LPAREN STRING LBRACKET RBRACKET identifier RPAREN LBRACE statement RBRACE RBRACE
+
+    VOID            shift and go to state 31
+
+
+state 20
+
+    (3) classbody -> vardeclaration_star .
+    (5) classbody -> vardeclaration_star . methoddeclaration_star
+    (18) methoddeclaration_star -> . methoddeclaration methoddeclaration_star
+    (19) methoddeclaration_star -> . empty
+    (14) methoddeclaration -> . PUBLIC type identifier LPAREN type identifier argument_star_opt RPAREN LBRACE methodbody RETURN exp SEMICOLON RBRACE
+    (54) empty -> .
+
+  ! reduce/reduce conflict for RBRACE resolved using rule 3 (classbody -> vardeclaration_star .)
+    RBRACE          reduce using rule 3 (classbody -> vardeclaration_star .)
+    PUBLIC          shift and go to state 30
+
+  ! RBRACE          [ reduce using rule 54 (empty -> .) ]
+
+    methoddeclaration              shift and go to state 29
+    methoddeclaration_star         shift and go to state 32
+    empty                          shift and go to state 33
+
+state 21
+
+    (4) classbody -> methoddeclaration_star .
+
+    RBRACE          reduce using rule 4 (classbody -> methoddeclaration_star .)
+
+
+state 22
+
+    (2) classdeclaration -> CLASS identifier optional_extends LBRACE classbody . RBRACE
+
+    RBRACE          shift and go to state 34
+
+
+state 23
+
+    (11) vardeclaration -> type . identifier SEMICOLON
+    (53) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 35
+
+state 24
+
+    (13) vardeclaration_star -> empty .
+    (19) methoddeclaration_star -> empty .
+
+  ! reduce/reduce conflict for RBRACE resolved using rule 13 (vardeclaration_star -> empty .)
+    PUBLIC          reduce using rule 13 (vardeclaration_star -> empty .)
+    RBRACE          reduce using rule 13 (vardeclaration_star -> empty .)
+
+  ! RBRACE          [ reduce using rule 19 (methoddeclaration_star -> empty .) ]
+
+
+state 25
+
+    (12) vardeclaration_star -> vardeclaration . vardeclaration_star
+    (12) vardeclaration_star -> . vardeclaration vardeclaration_star
+    (13) vardeclaration_star -> . empty
+    (11) vardeclaration -> . type identifier SEMICOLON
+    (54) empty -> .
+    (20) type -> . INT LBRACKET RBRACKET
+    (21) type -> . BOOLEAN
+    (22) type -> . INT
+    (23) type -> . identifier
+    (53) identifier -> . IDENTIFIER
+
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+    PUBLIC          reduce using rule 54 (empty -> .)
+    RBRACE          reduce using rule 54 (empty -> .)
+    LBRACE          reduce using rule 54 (empty -> .)
+    IF              reduce using rule 54 (empty -> .)
+    WHILE           reduce using rule 54 (empty -> .)
+    SYSTEM_PRINTLN  reduce using rule 54 (empty -> .)
+    RETURN          reduce using rule 54 (empty -> .)
+    INT             shift and go to state 26
+    BOOLEAN         shift and go to state 27
+    IDENTIFIER      shift and go to state 8
+
+  ! IDENTIFIER      [ reduce using rule 54 (empty -> .) ]
+
+    identifier                     shift and go to state 28
+    vardeclaration                 shift and go to state 25
+    type                           shift and go to state 23
+    vardeclaration_star            shift and go to state 36
+    empty                          shift and go to state 37
+
+state 26
+
+    (20) type -> INT . LBRACKET RBRACKET
+    (22) type -> INT .
+
+    LBRACKET        shift and go to state 38
+    IDENTIFIER      reduce using rule 22 (type -> INT .)
+
+
+state 27
+
+    (21) type -> BOOLEAN .
+
+    IDENTIFIER      reduce using rule 21 (type -> BOOLEAN .)
+
+
+state 28
+
+    (23) type -> identifier .
+
+    IDENTIFIER      reduce using rule 23 (type -> identifier .)
+
+
+state 29
+
+    (18) methoddeclaration_star -> methoddeclaration . methoddeclaration_star
+    (18) methoddeclaration_star -> . methoddeclaration methoddeclaration_star
+    (19) methoddeclaration_star -> . empty
+    (14) methoddeclaration -> . PUBLIC type identifier LPAREN type identifier argument_star_opt RPAREN LBRACE methodbody RETURN exp SEMICOLON RBRACE
+    (54) empty -> .
+
+    PUBLIC          shift and go to state 30
+    RBRACE          reduce using rule 54 (empty -> .)
+
+    methoddeclaration              shift and go to state 29
+    methoddeclaration_star         shift and go to state 39
+    empty                          shift and go to state 33
+
+state 30
+
+    (14) methoddeclaration -> PUBLIC . type identifier LPAREN type identifier argument_star_opt RPAREN LBRACE methodbody RETURN exp SEMICOLON RBRACE
+    (20) type -> . INT LBRACKET RBRACKET
+    (21) type -> . BOOLEAN
+    (22) type -> . INT
+    (23) type -> . identifier
+    (53) identifier -> . IDENTIFIER
+
+    INT             shift and go to state 26
+    BOOLEAN         shift and go to state 27
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 28
+    type                           shift and go to state 40
+
+state 31
+
+    (8) mainclass -> CLASS identifier LBRACE PUBLIC STATIC VOID . MAIN LPAREN STRING LBRACKET RBRACKET identifier RPAREN LBRACE statement RBRACE RBRACE
+
+    MAIN            shift and go to state 41
+
+
+state 32
+
+    (5) classbody -> vardeclaration_star methoddeclaration_star .
+
+    RBRACE          reduce using rule 5 (classbody -> vardeclaration_star methoddeclaration_star .)
+
+
+state 33
+
+    (19) methoddeclaration_star -> empty .
+
+    RBRACE          reduce using rule 19 (methoddeclaration_star -> empty .)
+
+
+state 34
+
+    (2) classdeclaration -> CLASS identifier optional_extends LBRACE classbody RBRACE .
+
+    CLASS           reduce using rule 2 (classdeclaration -> CLASS identifier optional_extends LBRACE classbody RBRACE .)
+    $end            reduce using rule 2 (classdeclaration -> CLASS identifier optional_extends LBRACE classbody RBRACE .)
+
+
+state 35
+
+    (11) vardeclaration -> type identifier . SEMICOLON
+
+    SEMICOLON       shift and go to state 42
+
+
+state 36
+
+    (12) vardeclaration_star -> vardeclaration vardeclaration_star .
+
+    PUBLIC          reduce using rule 12 (vardeclaration_star -> vardeclaration vardeclaration_star .)
+    RBRACE          reduce using rule 12 (vardeclaration_star -> vardeclaration vardeclaration_star .)
+    LBRACE          reduce using rule 12 (vardeclaration_star -> vardeclaration vardeclaration_star .)
+    IF              reduce using rule 12 (vardeclaration_star -> vardeclaration vardeclaration_star .)
+    WHILE           reduce using rule 12 (vardeclaration_star -> vardeclaration vardeclaration_star .)
+    SYSTEM_PRINTLN  reduce using rule 12 (vardeclaration_star -> vardeclaration vardeclaration_star .)
+    IDENTIFIER      reduce using rule 12 (vardeclaration_star -> vardeclaration vardeclaration_star .)
+    RETURN          reduce using rule 12 (vardeclaration_star -> vardeclaration vardeclaration_star .)
+
+
+state 37
+
+    (13) vardeclaration_star -> empty .
+
+    PUBLIC          reduce using rule 13 (vardeclaration_star -> empty .)
+    RBRACE          reduce using rule 13 (vardeclaration_star -> empty .)
+    LBRACE          reduce using rule 13 (vardeclaration_star -> empty .)
+    IF              reduce using rule 13 (vardeclaration_star -> empty .)
+    WHILE           reduce using rule 13 (vardeclaration_star -> empty .)
+    SYSTEM_PRINTLN  reduce using rule 13 (vardeclaration_star -> empty .)
+    IDENTIFIER      reduce using rule 13 (vardeclaration_star -> empty .)
+    RETURN          reduce using rule 13 (vardeclaration_star -> empty .)
+
+
+state 38
+
+    (20) type -> INT LBRACKET . RBRACKET
+
+    RBRACKET        shift and go to state 43
+
+
+state 39
+
+    (18) methoddeclaration_star -> methoddeclaration methoddeclaration_star .
+
+    RBRACE          reduce using rule 18 (methoddeclaration_star -> methoddeclaration methoddeclaration_star .)
+
+
+state 40
+
+    (14) methoddeclaration -> PUBLIC type . identifier LPAREN type identifier argument_star_opt RPAREN LBRACE methodbody RETURN exp SEMICOLON RBRACE
+    (53) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 44
+
+state 41
+
+    (8) mainclass -> CLASS identifier LBRACE PUBLIC STATIC VOID MAIN . LPAREN STRING LBRACKET RBRACKET identifier RPAREN LBRACE statement RBRACE RBRACE
+
+    LPAREN          shift and go to state 45
+
+
+state 42
+
+    (11) vardeclaration -> type identifier SEMICOLON .
+
+    INT             reduce using rule 11 (vardeclaration -> type identifier SEMICOLON .)
+    BOOLEAN         reduce using rule 11 (vardeclaration -> type identifier SEMICOLON .)
+    IDENTIFIER      reduce using rule 11 (vardeclaration -> type identifier SEMICOLON .)
+    PUBLIC          reduce using rule 11 (vardeclaration -> type identifier SEMICOLON .)
+    RBRACE          reduce using rule 11 (vardeclaration -> type identifier SEMICOLON .)
+    LBRACE          reduce using rule 11 (vardeclaration -> type identifier SEMICOLON .)
+    IF              reduce using rule 11 (vardeclaration -> type identifier SEMICOLON .)
+    WHILE           reduce using rule 11 (vardeclaration -> type identifier SEMICOLON .)
+    SYSTEM_PRINTLN  reduce using rule 11 (vardeclaration -> type identifier SEMICOLON .)
+    RETURN          reduce using rule 11 (vardeclaration -> type identifier SEMICOLON .)
+
+
+state 43
+
+    (20) type -> INT LBRACKET RBRACKET .
+
+    IDENTIFIER      reduce using rule 20 (type -> INT LBRACKET RBRACKET .)
+
+
+state 44
+
+    (14) methoddeclaration -> PUBLIC type identifier . LPAREN type identifier argument_star_opt RPAREN LBRACE methodbody RETURN exp SEMICOLON RBRACE
+
+    LPAREN          shift and go to state 46
+
+
+state 45
+
+    (8) mainclass -> CLASS identifier LBRACE PUBLIC STATIC VOID MAIN LPAREN . STRING LBRACKET RBRACKET identifier RPAREN LBRACE statement RBRACE RBRACE
+
+    STRING          shift and go to state 47
+
+
+state 46
+
+    (14) methoddeclaration -> PUBLIC type identifier LPAREN . type identifier argument_star_opt RPAREN LBRACE methodbody RETURN exp SEMICOLON RBRACE
+    (20) type -> . INT LBRACKET RBRACKET
+    (21) type -> . BOOLEAN
+    (22) type -> . INT
+    (23) type -> . identifier
+    (53) identifier -> . IDENTIFIER
+
+    INT             shift and go to state 26
+    BOOLEAN         shift and go to state 27
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 28
+    type                           shift and go to state 48
+
+state 47
+
+    (8) mainclass -> CLASS identifier LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING . LBRACKET RBRACKET identifier RPAREN LBRACE statement RBRACE RBRACE
+
+    LBRACKET        shift and go to state 49
+
+
+state 48
+
+    (14) methoddeclaration -> PUBLIC type identifier LPAREN type . identifier argument_star_opt RPAREN LBRACE methodbody RETURN exp SEMICOLON RBRACE
+    (53) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 50
+
+state 49
+
+    (8) mainclass -> CLASS identifier LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET . RBRACKET identifier RPAREN LBRACE statement RBRACE RBRACE
+
+    RBRACKET        shift and go to state 51
+
+
+state 50
+
+    (14) methoddeclaration -> PUBLIC type identifier LPAREN type identifier . argument_star_opt RPAREN LBRACE methodbody RETURN exp SEMICOLON RBRACE
+    (24) argument_star_opt -> . COMMA type identifier
+    (25) argument_star_opt -> . empty
+    (54) empty -> .
+
+    COMMA           shift and go to state 53
+    RPAREN          reduce using rule 54 (empty -> .)
+
+    argument_star_opt              shift and go to state 52
+    empty                          shift and go to state 54
+
+state 51
+
+    (8) mainclass -> CLASS identifier LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET . identifier RPAREN LBRACE statement RBRACE RBRACE
+    (53) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 55
+
+state 52
+
+    (14) methoddeclaration -> PUBLIC type identifier LPAREN type identifier argument_star_opt . RPAREN LBRACE methodbody RETURN exp SEMICOLON RBRACE
+
+    RPAREN          shift and go to state 56
+
+
+state 53
+
+    (24) argument_star_opt -> COMMA . type identifier
+    (20) type -> . INT LBRACKET RBRACKET
+    (21) type -> . BOOLEAN
+    (22) type -> . INT
+    (23) type -> . identifier
+    (53) identifier -> . IDENTIFIER
+
+    INT             shift and go to state 26
+    BOOLEAN         shift and go to state 27
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 28
+    type                           shift and go to state 57
+
+state 54
+
+    (25) argument_star_opt -> empty .
+
+    RPAREN          reduce using rule 25 (argument_star_opt -> empty .)
+
+
+state 55
+
+    (8) mainclass -> CLASS identifier LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET identifier . RPAREN LBRACE statement RBRACE RBRACE
+
+    RPAREN          shift and go to state 58
+
+
+state 56
+
+    (14) methoddeclaration -> PUBLIC type identifier LPAREN type identifier argument_star_opt RPAREN . LBRACE methodbody RETURN exp SEMICOLON RBRACE
+
+    LBRACE          shift and go to state 59
+
+
+state 57
+
+    (24) argument_star_opt -> COMMA type . identifier
+    (53) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 60
+
+state 58
+
+    (8) mainclass -> CLASS identifier LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET identifier RPAREN . LBRACE statement RBRACE RBRACE
+
+    LBRACE          shift and go to state 61
+
+
+state 59
+
+    (14) methoddeclaration -> PUBLIC type identifier LPAREN type identifier argument_star_opt RPAREN LBRACE . methodbody RETURN exp SEMICOLON RBRACE
+    (15) methodbody -> . statement_star
+    (16) methodbody -> . vardeclaration_star
+    (17) methodbody -> . vardeclaration_star statement_star
+    (32) statement_star -> . statement statement_star
+    (33) statement_star -> . empty
+    (12) vardeclaration_star -> . vardeclaration vardeclaration_star
+    (13) vardeclaration_star -> . empty
+    (26) statement -> . LBRACE statement_star RBRACE
+    (27) statement -> . IF LPAREN exp RPAREN statement ELSE statement
+    (28) statement -> . WHILE LPAREN exp RPAREN statement
+    (29) statement -> . SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON
+    (30) statement -> . identifier ATTR exp SEMICOLON
+    (31) statement -> . identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON
+    (54) empty -> .
+    (11) vardeclaration -> . type identifier SEMICOLON
+    (53) identifier -> . IDENTIFIER
+    (20) type -> . INT LBRACKET RBRACKET
+    (21) type -> . BOOLEAN
+    (22) type -> . INT
+    (23) type -> . identifier
+
+  ! shift/reduce conflict for LBRACE resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for SYSTEM_PRINTLN resolved as shift
+  ! shift/reduce conflict for IDENTIFIER resolved as shift
+    LBRACE          shift and go to state 68
+    IF              shift and go to state 69
+    WHILE           shift and go to state 63
+    SYSTEM_PRINTLN  shift and go to state 64
+    RETURN          reduce using rule 54 (empty -> .)
+    IDENTIFIER      shift and go to state 8
+    INT             shift and go to state 26
+    BOOLEAN         shift and go to state 27
+
+  ! LBRACE          [ reduce using rule 54 (empty -> .) ]
+  ! IF              [ reduce using rule 54 (empty -> .) ]
+  ! WHILE           [ reduce using rule 54 (empty -> .) ]
+  ! SYSTEM_PRINTLN  [ reduce using rule 54 (empty -> .) ]
+  ! IDENTIFIER      [ reduce using rule 54 (empty -> .) ]
+
+    methodbody                     shift and go to state 62
+    vardeclaration                 shift and go to state 25
+    statement                      shift and go to state 66
+    type                           shift and go to state 23
+    vardeclaration_star            shift and go to state 65
+    identifier                     shift and go to state 70
+    statement_star                 shift and go to state 71
+    empty                          shift and go to state 67
+
+state 60
+
+    (24) argument_star_opt -> COMMA type identifier .
+
+    RPAREN          reduce using rule 24 (argument_star_opt -> COMMA type identifier .)
+
+
+state 61
+
+    (8) mainclass -> CLASS identifier LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET identifier RPAREN LBRACE . statement RBRACE RBRACE
+    (26) statement -> . LBRACE statement_star RBRACE
+    (27) statement -> . IF LPAREN exp RPAREN statement ELSE statement
+    (28) statement -> . WHILE LPAREN exp RPAREN statement
+    (29) statement -> . SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON
+    (30) statement -> . identifier ATTR exp SEMICOLON
+    (31) statement -> . identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON
+    (53) identifier -> . IDENTIFIER
+
+    LBRACE          shift and go to state 68
+    IF              shift and go to state 69
+    WHILE           shift and go to state 63
+    SYSTEM_PRINTLN  shift and go to state 64
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 73
+    statement                      shift and go to state 72
+
+state 62
+
+    (14) methoddeclaration -> PUBLIC type identifier LPAREN type identifier argument_star_opt RPAREN LBRACE methodbody . RETURN exp SEMICOLON RBRACE
+
+    RETURN          shift and go to state 74
+
+
+state 63
+
+    (28) statement -> WHILE . LPAREN exp RPAREN statement
+
+    LPAREN          shift and go to state 75
+
+
+state 64
+
+    (29) statement -> SYSTEM_PRINTLN . LPAREN exp RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 76
+
+
+state 65
+
+    (16) methodbody -> vardeclaration_star .
+    (17) methodbody -> vardeclaration_star . statement_star
+    (32) statement_star -> . statement statement_star
+    (33) statement_star -> . empty
+    (26) statement -> . LBRACE statement_star RBRACE
+    (27) statement -> . IF LPAREN exp RPAREN statement ELSE statement
+    (28) statement -> . WHILE LPAREN exp RPAREN statement
+    (29) statement -> . SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON
+    (30) statement -> . identifier ATTR exp SEMICOLON
+    (31) statement -> . identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON
+    (54) empty -> .
+    (53) identifier -> . IDENTIFIER
+
+  ! reduce/reduce conflict for RETURN resolved using rule 16 (methodbody -> vardeclaration_star .)
+    RETURN          reduce using rule 16 (methodbody -> vardeclaration_star .)
+    LBRACE          shift and go to state 68
+    IF              shift and go to state 69
+    WHILE           shift and go to state 63
+    SYSTEM_PRINTLN  shift and go to state 64
+    IDENTIFIER      shift and go to state 8
+
+  ! RETURN          [ reduce using rule 54 (empty -> .) ]
+
+    statement                      shift and go to state 66
+    identifier                     shift and go to state 73
+    statement_star                 shift and go to state 77
+    empty                          shift and go to state 78
+
+state 66
+
+    (32) statement_star -> statement . statement_star
+    (32) statement_star -> . statement statement_star
+    (33) statement_star -> . empty
+    (26) statement -> . LBRACE statement_star RBRACE
+    (27) statement -> . IF LPAREN exp RPAREN statement ELSE statement
+    (28) statement -> . WHILE LPAREN exp RPAREN statement
+    (29) statement -> . SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON
+    (30) statement -> . identifier ATTR exp SEMICOLON
+    (31) statement -> . identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON
+    (54) empty -> .
+    (53) identifier -> . IDENTIFIER
+
+    LBRACE          shift and go to state 68
+    IF              shift and go to state 69
+    WHILE           shift and go to state 63
+    SYSTEM_PRINTLN  shift and go to state 64
+    RETURN          reduce using rule 54 (empty -> .)
+    RBRACE          reduce using rule 54 (empty -> .)
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 73
+    statement_star                 shift and go to state 79
+    empty                          shift and go to state 78
+    statement                      shift and go to state 66
+
+state 67
+
+    (33) statement_star -> empty .
+    (13) vardeclaration_star -> empty .
+
+  ! reduce/reduce conflict for RETURN resolved using rule 13 (vardeclaration_star -> empty .)
+    LBRACE          reduce using rule 13 (vardeclaration_star -> empty .)
+    IF              reduce using rule 13 (vardeclaration_star -> empty .)
+    WHILE           reduce using rule 13 (vardeclaration_star -> empty .)
+    SYSTEM_PRINTLN  reduce using rule 13 (vardeclaration_star -> empty .)
+    IDENTIFIER      reduce using rule 13 (vardeclaration_star -> empty .)
+    RETURN          reduce using rule 13 (vardeclaration_star -> empty .)
+
+  ! RETURN          [ reduce using rule 33 (statement_star -> empty .) ]
+
+
+state 68
+
+    (26) statement -> LBRACE . statement_star RBRACE
+    (32) statement_star -> . statement statement_star
+    (33) statement_star -> . empty
+    (26) statement -> . LBRACE statement_star RBRACE
+    (27) statement -> . IF LPAREN exp RPAREN statement ELSE statement
+    (28) statement -> . WHILE LPAREN exp RPAREN statement
+    (29) statement -> . SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON
+    (30) statement -> . identifier ATTR exp SEMICOLON
+    (31) statement -> . identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON
+    (54) empty -> .
+    (53) identifier -> . IDENTIFIER
+
+    LBRACE          shift and go to state 68
+    IF              shift and go to state 69
+    WHILE           shift and go to state 63
+    SYSTEM_PRINTLN  shift and go to state 64
+    RBRACE          reduce using rule 54 (empty -> .)
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 73
+    statement_star                 shift and go to state 80
+    empty                          shift and go to state 78
+    statement                      shift and go to state 66
+
+state 69
+
+    (27) statement -> IF . LPAREN exp RPAREN statement ELSE statement
+
+    LPAREN          shift and go to state 81
+
+
+state 70
+
+    (30) statement -> identifier . ATTR exp SEMICOLON
+    (31) statement -> identifier . LBRACKET exp RBRACKET ATTR exp SEMICOLON
+    (23) type -> identifier .
+
+    ATTR            shift and go to state 82
+    LBRACKET        shift and go to state 83
+    IDENTIFIER      reduce using rule 23 (type -> identifier .)
+
+
+state 71
+
+    (15) methodbody -> statement_star .
+
+    RETURN          reduce using rule 15 (methodbody -> statement_star .)
+
+
+state 72
+
+    (8) mainclass -> CLASS identifier LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET identifier RPAREN LBRACE statement . RBRACE RBRACE
+
+    RBRACE          shift and go to state 84
+
+
+state 73
+
+    (30) statement -> identifier . ATTR exp SEMICOLON
+    (31) statement -> identifier . LBRACKET exp RBRACKET ATTR exp SEMICOLON
+
+    ATTR            shift and go to state 82
+    LBRACKET        shift and go to state 83
+
+
+state 74
+
+    (14) methoddeclaration -> PUBLIC type identifier LPAREN type identifier argument_star_opt RPAREN LBRACE methodbody RETURN . exp SEMICOLON RBRACE
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    exp                            shift and go to state 91
+    identifier                     shift and go to state 93
+
+state 75
+
+    (28) statement -> WHILE LPAREN . exp RPAREN statement
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 94
+
+state 76
+
+    (29) statement -> SYSTEM_PRINTLN LPAREN . exp RPAREN SEMICOLON
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 95
+
+state 77
+
+    (17) methodbody -> vardeclaration_star statement_star .
+
+    RETURN          reduce using rule 17 (methodbody -> vardeclaration_star statement_star .)
+
+
+state 78
+
+    (33) statement_star -> empty .
+
+    RETURN          reduce using rule 33 (statement_star -> empty .)
+    RBRACE          reduce using rule 33 (statement_star -> empty .)
+
+
+state 79
+
+    (32) statement_star -> statement statement_star .
+
+    RETURN          reduce using rule 32 (statement_star -> statement statement_star .)
+    RBRACE          reduce using rule 32 (statement_star -> statement statement_star .)
+
+
+state 80
+
+    (26) statement -> LBRACE statement_star . RBRACE
+
+    RBRACE          shift and go to state 96
+
+
+state 81
+
+    (27) statement -> IF LPAREN . exp RPAREN statement ELSE statement
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 97
+
+state 82
+
+    (30) statement -> identifier ATTR . exp SEMICOLON
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 98
+
+state 83
+
+    (31) statement -> identifier LBRACKET . exp RBRACKET ATTR exp SEMICOLON
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 99
+
+state 84
+
+    (8) mainclass -> CLASS identifier LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET identifier RPAREN LBRACE statement RBRACE . RBRACE
+
+    RBRACE          shift and go to state 100
+
+
+state 85
+
+    (47) exp -> NEW . INT LBRACKET exp RBRACKET
+    (48) exp -> NEW . identifier LPAREN RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INT             shift and go to state 101
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 102
+
+state 86
+
+    (43) exp -> TRUE .
+
+    RPAREN          reduce using rule 43 (exp -> TRUE .)
+    AND             reduce using rule 43 (exp -> TRUE .)
+    LESSTHAN        reduce using rule 43 (exp -> TRUE .)
+    PLUS            reduce using rule 43 (exp -> TRUE .)
+    MINUS           reduce using rule 43 (exp -> TRUE .)
+    TIMES           reduce using rule 43 (exp -> TRUE .)
+    LBRACKET        reduce using rule 43 (exp -> TRUE .)
+    DOT             reduce using rule 43 (exp -> TRUE .)
+    SEMICOLON       reduce using rule 43 (exp -> TRUE .)
+    RBRACKET        reduce using rule 43 (exp -> TRUE .)
+    COMMA           reduce using rule 43 (exp -> TRUE .)
+
+
+state 87
+
+    (42) exp -> INTEGER .
+
+    RPAREN          reduce using rule 42 (exp -> INTEGER .)
+    AND             reduce using rule 42 (exp -> INTEGER .)
+    LESSTHAN        reduce using rule 42 (exp -> INTEGER .)
+    PLUS            reduce using rule 42 (exp -> INTEGER .)
+    MINUS           reduce using rule 42 (exp -> INTEGER .)
+    TIMES           reduce using rule 42 (exp -> INTEGER .)
+    LBRACKET        reduce using rule 42 (exp -> INTEGER .)
+    DOT             reduce using rule 42 (exp -> INTEGER .)
+    SEMICOLON       reduce using rule 42 (exp -> INTEGER .)
+    RBRACKET        reduce using rule 42 (exp -> INTEGER .)
+    COMMA           reduce using rule 42 (exp -> INTEGER .)
+
+
+state 88
+
+    (50) exp -> LPAREN . exp RPAREN
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 103
+
+state 89
+
+    (44) exp -> FALSE .
+
+    RPAREN          reduce using rule 44 (exp -> FALSE .)
+    AND             reduce using rule 44 (exp -> FALSE .)
+    LESSTHAN        reduce using rule 44 (exp -> FALSE .)
+    PLUS            reduce using rule 44 (exp -> FALSE .)
+    MINUS           reduce using rule 44 (exp -> FALSE .)
+    TIMES           reduce using rule 44 (exp -> FALSE .)
+    LBRACKET        reduce using rule 44 (exp -> FALSE .)
+    DOT             reduce using rule 44 (exp -> FALSE .)
+    SEMICOLON       reduce using rule 44 (exp -> FALSE .)
+    RBRACKET        reduce using rule 44 (exp -> FALSE .)
+    COMMA           reduce using rule 44 (exp -> FALSE .)
+
+
+state 90
+
+    (46) exp -> THIS .
+
+    RPAREN          reduce using rule 46 (exp -> THIS .)
+    AND             reduce using rule 46 (exp -> THIS .)
+    LESSTHAN        reduce using rule 46 (exp -> THIS .)
+    PLUS            reduce using rule 46 (exp -> THIS .)
+    MINUS           reduce using rule 46 (exp -> THIS .)
+    TIMES           reduce using rule 46 (exp -> THIS .)
+    LBRACKET        reduce using rule 46 (exp -> THIS .)
+    DOT             reduce using rule 46 (exp -> THIS .)
+    SEMICOLON       reduce using rule 46 (exp -> THIS .)
+    RBRACKET        reduce using rule 46 (exp -> THIS .)
+    COMMA           reduce using rule 46 (exp -> THIS .)
+
+
+state 91
+
+    (14) methoddeclaration -> PUBLIC type identifier LPAREN type identifier argument_star_opt RPAREN LBRACE methodbody RETURN exp . SEMICOLON RBRACE
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+
+    SEMICOLON       shift and go to state 108
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+
+
+state 92
+
+    (49) exp -> NOT . exp
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 112
+
+state 93
+
+    (45) exp -> identifier .
+
+    RPAREN          reduce using rule 45 (exp -> identifier .)
+    AND             reduce using rule 45 (exp -> identifier .)
+    LESSTHAN        reduce using rule 45 (exp -> identifier .)
+    PLUS            reduce using rule 45 (exp -> identifier .)
+    MINUS           reduce using rule 45 (exp -> identifier .)
+    TIMES           reduce using rule 45 (exp -> identifier .)
+    LBRACKET        reduce using rule 45 (exp -> identifier .)
+    DOT             reduce using rule 45 (exp -> identifier .)
+    SEMICOLON       reduce using rule 45 (exp -> identifier .)
+    RBRACKET        reduce using rule 45 (exp -> identifier .)
+    COMMA           reduce using rule 45 (exp -> identifier .)
+
+
+state 94
+
+    (28) statement -> WHILE LPAREN exp . RPAREN statement
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+
+    RPAREN          shift and go to state 113
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+
+
+state 95
+
+    (29) statement -> SYSTEM_PRINTLN LPAREN exp . RPAREN SEMICOLON
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+
+    RPAREN          shift and go to state 114
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+
+
+state 96
+
+    (26) statement -> LBRACE statement_star RBRACE .
+
+    LBRACE          reduce using rule 26 (statement -> LBRACE statement_star RBRACE .)
+    IF              reduce using rule 26 (statement -> LBRACE statement_star RBRACE .)
+    WHILE           reduce using rule 26 (statement -> LBRACE statement_star RBRACE .)
+    SYSTEM_PRINTLN  reduce using rule 26 (statement -> LBRACE statement_star RBRACE .)
+    IDENTIFIER      reduce using rule 26 (statement -> LBRACE statement_star RBRACE .)
+    RETURN          reduce using rule 26 (statement -> LBRACE statement_star RBRACE .)
+    RBRACE          reduce using rule 26 (statement -> LBRACE statement_star RBRACE .)
+    ELSE            reduce using rule 26 (statement -> LBRACE statement_star RBRACE .)
+
+
+state 97
+
+    (27) statement -> IF LPAREN exp . RPAREN statement ELSE statement
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+
+    RPAREN          shift and go to state 115
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+
+
+state 98
+
+    (30) statement -> identifier ATTR exp . SEMICOLON
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+
+    SEMICOLON       shift and go to state 116
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+
+
+state 99
+
+    (31) statement -> identifier LBRACKET exp . RBRACKET ATTR exp SEMICOLON
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+
+    RBRACKET        shift and go to state 117
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+
+
+state 100
+
+    (8) mainclass -> CLASS identifier LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET identifier RPAREN LBRACE statement RBRACE RBRACE .
+
+    CLASS           reduce using rule 8 (mainclass -> CLASS identifier LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET identifier RPAREN LBRACE statement RBRACE RBRACE .)
+    $end            reduce using rule 8 (mainclass -> CLASS identifier LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET identifier RPAREN LBRACE statement RBRACE RBRACE .)
+
+
+state 101
+
+    (47) exp -> NEW INT . LBRACKET exp RBRACKET
+
+    LBRACKET        shift and go to state 118
+
+
+state 102
+
+    (48) exp -> NEW identifier . LPAREN RPAREN
+
+    LPAREN          shift and go to state 119
+
+
+state 103
+
+    (50) exp -> LPAREN exp . RPAREN
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+
+    RPAREN          shift and go to state 120
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+
+
+state 104
+
+    (39) exp -> exp LBRACKET . exp RBRACKET
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 121
+
+state 105
+
+    (35) exp -> exp LESSTHAN . exp
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 122
+
+state 106
+
+    (37) exp -> exp MINUS . exp
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 123
+
+state 107
+
+    (40) exp -> exp DOT . LENGTH
+    (41) exp -> exp DOT . identifier LPAREN exp opt_exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    LENGTH          shift and go to state 124
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 125
+
+state 108
+
+    (14) methoddeclaration -> PUBLIC type identifier LPAREN type identifier argument_star_opt RPAREN LBRACE methodbody RETURN exp SEMICOLON . RBRACE
+
+    RBRACE          shift and go to state 126
+
+
+state 109
+
+    (36) exp -> exp PLUS . exp
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 127
+
+state 110
+
+    (38) exp -> exp TIMES . exp
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 128
+
+state 111
+
+    (34) exp -> exp AND . exp
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 129
+
+state 112
+
+    (49) exp -> NOT exp .
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for LBRACKET resolved as shift
+  ! shift/reduce conflict for DOT resolved as shift
+    RPAREN          reduce using rule 49 (exp -> NOT exp .)
+    SEMICOLON       reduce using rule 49 (exp -> NOT exp .)
+    RBRACKET        reduce using rule 49 (exp -> NOT exp .)
+    COMMA           reduce using rule 49 (exp -> NOT exp .)
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+
+  ! AND             [ reduce using rule 49 (exp -> NOT exp .) ]
+  ! LESSTHAN        [ reduce using rule 49 (exp -> NOT exp .) ]
+  ! PLUS            [ reduce using rule 49 (exp -> NOT exp .) ]
+  ! MINUS           [ reduce using rule 49 (exp -> NOT exp .) ]
+  ! TIMES           [ reduce using rule 49 (exp -> NOT exp .) ]
+  ! LBRACKET        [ reduce using rule 49 (exp -> NOT exp .) ]
+  ! DOT             [ reduce using rule 49 (exp -> NOT exp .) ]
+
+
+state 113
+
+    (28) statement -> WHILE LPAREN exp RPAREN . statement
+    (26) statement -> . LBRACE statement_star RBRACE
+    (27) statement -> . IF LPAREN exp RPAREN statement ELSE statement
+    (28) statement -> . WHILE LPAREN exp RPAREN statement
+    (29) statement -> . SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON
+    (30) statement -> . identifier ATTR exp SEMICOLON
+    (31) statement -> . identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON
+    (53) identifier -> . IDENTIFIER
+
+    LBRACE          shift and go to state 68
+    IF              shift and go to state 69
+    WHILE           shift and go to state 63
+    SYSTEM_PRINTLN  shift and go to state 64
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 73
+    statement                      shift and go to state 130
+
+state 114
+
+    (29) statement -> SYSTEM_PRINTLN LPAREN exp RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 131
+
+
+state 115
+
+    (27) statement -> IF LPAREN exp RPAREN . statement ELSE statement
+    (26) statement -> . LBRACE statement_star RBRACE
+    (27) statement -> . IF LPAREN exp RPAREN statement ELSE statement
+    (28) statement -> . WHILE LPAREN exp RPAREN statement
+    (29) statement -> . SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON
+    (30) statement -> . identifier ATTR exp SEMICOLON
+    (31) statement -> . identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON
+    (53) identifier -> . IDENTIFIER
+
+    LBRACE          shift and go to state 68
+    IF              shift and go to state 69
+    WHILE           shift and go to state 63
+    SYSTEM_PRINTLN  shift and go to state 64
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 73
+    statement                      shift and go to state 132
+
+state 116
+
+    (30) statement -> identifier ATTR exp SEMICOLON .
+
+    LBRACE          reduce using rule 30 (statement -> identifier ATTR exp SEMICOLON .)
+    IF              reduce using rule 30 (statement -> identifier ATTR exp SEMICOLON .)
+    WHILE           reduce using rule 30 (statement -> identifier ATTR exp SEMICOLON .)
+    SYSTEM_PRINTLN  reduce using rule 30 (statement -> identifier ATTR exp SEMICOLON .)
+    IDENTIFIER      reduce using rule 30 (statement -> identifier ATTR exp SEMICOLON .)
+    RETURN          reduce using rule 30 (statement -> identifier ATTR exp SEMICOLON .)
+    RBRACE          reduce using rule 30 (statement -> identifier ATTR exp SEMICOLON .)
+    ELSE            reduce using rule 30 (statement -> identifier ATTR exp SEMICOLON .)
+
+
+state 117
+
+    (31) statement -> identifier LBRACKET exp RBRACKET . ATTR exp SEMICOLON
+
+    ATTR            shift and go to state 133
+
+
+state 118
+
+    (47) exp -> NEW INT LBRACKET . exp RBRACKET
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 134
+
+state 119
+
+    (48) exp -> NEW identifier LPAREN . RPAREN
+
+    RPAREN          shift and go to state 135
+
+
+state 120
+
+    (50) exp -> LPAREN exp RPAREN .
+
+    RPAREN          reduce using rule 50 (exp -> LPAREN exp RPAREN .)
+    AND             reduce using rule 50 (exp -> LPAREN exp RPAREN .)
+    LESSTHAN        reduce using rule 50 (exp -> LPAREN exp RPAREN .)
+    PLUS            reduce using rule 50 (exp -> LPAREN exp RPAREN .)
+    MINUS           reduce using rule 50 (exp -> LPAREN exp RPAREN .)
+    TIMES           reduce using rule 50 (exp -> LPAREN exp RPAREN .)
+    LBRACKET        reduce using rule 50 (exp -> LPAREN exp RPAREN .)
+    DOT             reduce using rule 50 (exp -> LPAREN exp RPAREN .)
+    SEMICOLON       reduce using rule 50 (exp -> LPAREN exp RPAREN .)
+    RBRACKET        reduce using rule 50 (exp -> LPAREN exp RPAREN .)
+    COMMA           reduce using rule 50 (exp -> LPAREN exp RPAREN .)
+
+
+state 121
+
+    (39) exp -> exp LBRACKET exp . RBRACKET
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+
+    RBRACKET        shift and go to state 136
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+
+
+state 122
+
+    (35) exp -> exp LESSTHAN exp .
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for LBRACKET resolved as shift
+  ! shift/reduce conflict for DOT resolved as shift
+    RPAREN          reduce using rule 35 (exp -> exp LESSTHAN exp .)
+    SEMICOLON       reduce using rule 35 (exp -> exp LESSTHAN exp .)
+    RBRACKET        reduce using rule 35 (exp -> exp LESSTHAN exp .)
+    COMMA           reduce using rule 35 (exp -> exp LESSTHAN exp .)
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+
+  ! AND             [ reduce using rule 35 (exp -> exp LESSTHAN exp .) ]
+  ! LESSTHAN        [ reduce using rule 35 (exp -> exp LESSTHAN exp .) ]
+  ! PLUS            [ reduce using rule 35 (exp -> exp LESSTHAN exp .) ]
+  ! MINUS           [ reduce using rule 35 (exp -> exp LESSTHAN exp .) ]
+  ! TIMES           [ reduce using rule 35 (exp -> exp LESSTHAN exp .) ]
+  ! LBRACKET        [ reduce using rule 35 (exp -> exp LESSTHAN exp .) ]
+  ! DOT             [ reduce using rule 35 (exp -> exp LESSTHAN exp .) ]
+
+
+state 123
+
+    (37) exp -> exp MINUS exp .
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for LBRACKET resolved as shift
+  ! shift/reduce conflict for DOT resolved as shift
+    RPAREN          reduce using rule 37 (exp -> exp MINUS exp .)
+    SEMICOLON       reduce using rule 37 (exp -> exp MINUS exp .)
+    RBRACKET        reduce using rule 37 (exp -> exp MINUS exp .)
+    COMMA           reduce using rule 37 (exp -> exp MINUS exp .)
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+
+  ! AND             [ reduce using rule 37 (exp -> exp MINUS exp .) ]
+  ! LESSTHAN        [ reduce using rule 37 (exp -> exp MINUS exp .) ]
+  ! PLUS            [ reduce using rule 37 (exp -> exp MINUS exp .) ]
+  ! MINUS           [ reduce using rule 37 (exp -> exp MINUS exp .) ]
+  ! TIMES           [ reduce using rule 37 (exp -> exp MINUS exp .) ]
+  ! LBRACKET        [ reduce using rule 37 (exp -> exp MINUS exp .) ]
+  ! DOT             [ reduce using rule 37 (exp -> exp MINUS exp .) ]
+
+
+state 124
+
+    (40) exp -> exp DOT LENGTH .
+
+    RPAREN          reduce using rule 40 (exp -> exp DOT LENGTH .)
+    AND             reduce using rule 40 (exp -> exp DOT LENGTH .)
+    LESSTHAN        reduce using rule 40 (exp -> exp DOT LENGTH .)
+    PLUS            reduce using rule 40 (exp -> exp DOT LENGTH .)
+    MINUS           reduce using rule 40 (exp -> exp DOT LENGTH .)
+    TIMES           reduce using rule 40 (exp -> exp DOT LENGTH .)
+    LBRACKET        reduce using rule 40 (exp -> exp DOT LENGTH .)
+    DOT             reduce using rule 40 (exp -> exp DOT LENGTH .)
+    SEMICOLON       reduce using rule 40 (exp -> exp DOT LENGTH .)
+    RBRACKET        reduce using rule 40 (exp -> exp DOT LENGTH .)
+    COMMA           reduce using rule 40 (exp -> exp DOT LENGTH .)
+
+
+state 125
+
+    (41) exp -> exp DOT identifier . LPAREN exp opt_exp RPAREN
+
+    LPAREN          shift and go to state 137
+
+
+state 126
+
+    (14) methoddeclaration -> PUBLIC type identifier LPAREN type identifier argument_star_opt RPAREN LBRACE methodbody RETURN exp SEMICOLON RBRACE .
+
+    PUBLIC          reduce using rule 14 (methoddeclaration -> PUBLIC type identifier LPAREN type identifier argument_star_opt RPAREN LBRACE methodbody RETURN exp SEMICOLON RBRACE .)
+    RBRACE          reduce using rule 14 (methoddeclaration -> PUBLIC type identifier LPAREN type identifier argument_star_opt RPAREN LBRACE methodbody RETURN exp SEMICOLON RBRACE .)
+
+
+state 127
+
+    (36) exp -> exp PLUS exp .
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for LBRACKET resolved as shift
+  ! shift/reduce conflict for DOT resolved as shift
+    RPAREN          reduce using rule 36 (exp -> exp PLUS exp .)
+    SEMICOLON       reduce using rule 36 (exp -> exp PLUS exp .)
+    RBRACKET        reduce using rule 36 (exp -> exp PLUS exp .)
+    COMMA           reduce using rule 36 (exp -> exp PLUS exp .)
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+
+  ! AND             [ reduce using rule 36 (exp -> exp PLUS exp .) ]
+  ! LESSTHAN        [ reduce using rule 36 (exp -> exp PLUS exp .) ]
+  ! PLUS            [ reduce using rule 36 (exp -> exp PLUS exp .) ]
+  ! MINUS           [ reduce using rule 36 (exp -> exp PLUS exp .) ]
+  ! TIMES           [ reduce using rule 36 (exp -> exp PLUS exp .) ]
+  ! LBRACKET        [ reduce using rule 36 (exp -> exp PLUS exp .) ]
+  ! DOT             [ reduce using rule 36 (exp -> exp PLUS exp .) ]
+
+
+state 128
+
+    (38) exp -> exp TIMES exp .
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for LBRACKET resolved as shift
+  ! shift/reduce conflict for DOT resolved as shift
+    RPAREN          reduce using rule 38 (exp -> exp TIMES exp .)
+    SEMICOLON       reduce using rule 38 (exp -> exp TIMES exp .)
+    RBRACKET        reduce using rule 38 (exp -> exp TIMES exp .)
+    COMMA           reduce using rule 38 (exp -> exp TIMES exp .)
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+
+  ! AND             [ reduce using rule 38 (exp -> exp TIMES exp .) ]
+  ! LESSTHAN        [ reduce using rule 38 (exp -> exp TIMES exp .) ]
+  ! PLUS            [ reduce using rule 38 (exp -> exp TIMES exp .) ]
+  ! MINUS           [ reduce using rule 38 (exp -> exp TIMES exp .) ]
+  ! TIMES           [ reduce using rule 38 (exp -> exp TIMES exp .) ]
+  ! LBRACKET        [ reduce using rule 38 (exp -> exp TIMES exp .) ]
+  ! DOT             [ reduce using rule 38 (exp -> exp TIMES exp .) ]
+
+
+state 129
+
+    (34) exp -> exp AND exp .
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for LESSTHAN resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for LBRACKET resolved as shift
+  ! shift/reduce conflict for DOT resolved as shift
+    RPAREN          reduce using rule 34 (exp -> exp AND exp .)
+    SEMICOLON       reduce using rule 34 (exp -> exp AND exp .)
+    RBRACKET        reduce using rule 34 (exp -> exp AND exp .)
+    COMMA           reduce using rule 34 (exp -> exp AND exp .)
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+
+  ! AND             [ reduce using rule 34 (exp -> exp AND exp .) ]
+  ! LESSTHAN        [ reduce using rule 34 (exp -> exp AND exp .) ]
+  ! PLUS            [ reduce using rule 34 (exp -> exp AND exp .) ]
+  ! MINUS           [ reduce using rule 34 (exp -> exp AND exp .) ]
+  ! TIMES           [ reduce using rule 34 (exp -> exp AND exp .) ]
+  ! LBRACKET        [ reduce using rule 34 (exp -> exp AND exp .) ]
+  ! DOT             [ reduce using rule 34 (exp -> exp AND exp .) ]
+
+
+state 130
+
+    (28) statement -> WHILE LPAREN exp RPAREN statement .
+
+    LBRACE          reduce using rule 28 (statement -> WHILE LPAREN exp RPAREN statement .)
+    IF              reduce using rule 28 (statement -> WHILE LPAREN exp RPAREN statement .)
+    WHILE           reduce using rule 28 (statement -> WHILE LPAREN exp RPAREN statement .)
+    SYSTEM_PRINTLN  reduce using rule 28 (statement -> WHILE LPAREN exp RPAREN statement .)
+    IDENTIFIER      reduce using rule 28 (statement -> WHILE LPAREN exp RPAREN statement .)
+    RETURN          reduce using rule 28 (statement -> WHILE LPAREN exp RPAREN statement .)
+    RBRACE          reduce using rule 28 (statement -> WHILE LPAREN exp RPAREN statement .)
+    ELSE            reduce using rule 28 (statement -> WHILE LPAREN exp RPAREN statement .)
+
+
+state 131
+
+    (29) statement -> SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON .
+
+    LBRACE          reduce using rule 29 (statement -> SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON .)
+    IF              reduce using rule 29 (statement -> SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON .)
+    WHILE           reduce using rule 29 (statement -> SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON .)
+    SYSTEM_PRINTLN  reduce using rule 29 (statement -> SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON .)
+    IDENTIFIER      reduce using rule 29 (statement -> SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON .)
+    RETURN          reduce using rule 29 (statement -> SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 29 (statement -> SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON .)
+    ELSE            reduce using rule 29 (statement -> SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON .)
+
+
+state 132
+
+    (27) statement -> IF LPAREN exp RPAREN statement . ELSE statement
+
+    ELSE            shift and go to state 138
+
+
+state 133
+
+    (31) statement -> identifier LBRACKET exp RBRACKET ATTR . exp SEMICOLON
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 139
+
+state 134
+
+    (47) exp -> NEW INT LBRACKET exp . RBRACKET
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+
+    RBRACKET        shift and go to state 140
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+
+
+state 135
+
+    (48) exp -> NEW identifier LPAREN RPAREN .
+
+    RPAREN          reduce using rule 48 (exp -> NEW identifier LPAREN RPAREN .)
+    AND             reduce using rule 48 (exp -> NEW identifier LPAREN RPAREN .)
+    LESSTHAN        reduce using rule 48 (exp -> NEW identifier LPAREN RPAREN .)
+    PLUS            reduce using rule 48 (exp -> NEW identifier LPAREN RPAREN .)
+    MINUS           reduce using rule 48 (exp -> NEW identifier LPAREN RPAREN .)
+    TIMES           reduce using rule 48 (exp -> NEW identifier LPAREN RPAREN .)
+    LBRACKET        reduce using rule 48 (exp -> NEW identifier LPAREN RPAREN .)
+    DOT             reduce using rule 48 (exp -> NEW identifier LPAREN RPAREN .)
+    SEMICOLON       reduce using rule 48 (exp -> NEW identifier LPAREN RPAREN .)
+    RBRACKET        reduce using rule 48 (exp -> NEW identifier LPAREN RPAREN .)
+    COMMA           reduce using rule 48 (exp -> NEW identifier LPAREN RPAREN .)
+
+
+state 136
+
+    (39) exp -> exp LBRACKET exp RBRACKET .
+
+    RPAREN          reduce using rule 39 (exp -> exp LBRACKET exp RBRACKET .)
+    AND             reduce using rule 39 (exp -> exp LBRACKET exp RBRACKET .)
+    LESSTHAN        reduce using rule 39 (exp -> exp LBRACKET exp RBRACKET .)
+    PLUS            reduce using rule 39 (exp -> exp LBRACKET exp RBRACKET .)
+    MINUS           reduce using rule 39 (exp -> exp LBRACKET exp RBRACKET .)
+    TIMES           reduce using rule 39 (exp -> exp LBRACKET exp RBRACKET .)
+    LBRACKET        reduce using rule 39 (exp -> exp LBRACKET exp RBRACKET .)
+    DOT             reduce using rule 39 (exp -> exp LBRACKET exp RBRACKET .)
+    SEMICOLON       reduce using rule 39 (exp -> exp LBRACKET exp RBRACKET .)
+    RBRACKET        reduce using rule 39 (exp -> exp LBRACKET exp RBRACKET .)
+    COMMA           reduce using rule 39 (exp -> exp LBRACKET exp RBRACKET .)
+
+
+state 137
+
+    (41) exp -> exp DOT identifier LPAREN . exp opt_exp RPAREN
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 141
+
+state 138
+
+    (27) statement -> IF LPAREN exp RPAREN statement ELSE . statement
+    (26) statement -> . LBRACE statement_star RBRACE
+    (27) statement -> . IF LPAREN exp RPAREN statement ELSE statement
+    (28) statement -> . WHILE LPAREN exp RPAREN statement
+    (29) statement -> . SYSTEM_PRINTLN LPAREN exp RPAREN SEMICOLON
+    (30) statement -> . identifier ATTR exp SEMICOLON
+    (31) statement -> . identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON
+    (53) identifier -> . IDENTIFIER
+
+    LBRACE          shift and go to state 68
+    IF              shift and go to state 69
+    WHILE           shift and go to state 63
+    SYSTEM_PRINTLN  shift and go to state 64
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 73
+    statement                      shift and go to state 142
+
+state 139
+
+    (31) statement -> identifier LBRACKET exp RBRACKET ATTR exp . SEMICOLON
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+
+    SEMICOLON       shift and go to state 143
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+
+
+state 140
+
+    (47) exp -> NEW INT LBRACKET exp RBRACKET .
+
+    RPAREN          reduce using rule 47 (exp -> NEW INT LBRACKET exp RBRACKET .)
+    AND             reduce using rule 47 (exp -> NEW INT LBRACKET exp RBRACKET .)
+    LESSTHAN        reduce using rule 47 (exp -> NEW INT LBRACKET exp RBRACKET .)
+    PLUS            reduce using rule 47 (exp -> NEW INT LBRACKET exp RBRACKET .)
+    MINUS           reduce using rule 47 (exp -> NEW INT LBRACKET exp RBRACKET .)
+    TIMES           reduce using rule 47 (exp -> NEW INT LBRACKET exp RBRACKET .)
+    LBRACKET        reduce using rule 47 (exp -> NEW INT LBRACKET exp RBRACKET .)
+    DOT             reduce using rule 47 (exp -> NEW INT LBRACKET exp RBRACKET .)
+    SEMICOLON       reduce using rule 47 (exp -> NEW INT LBRACKET exp RBRACKET .)
+    RBRACKET        reduce using rule 47 (exp -> NEW INT LBRACKET exp RBRACKET .)
+    COMMA           reduce using rule 47 (exp -> NEW INT LBRACKET exp RBRACKET .)
+
+
+state 141
+
+    (41) exp -> exp DOT identifier LPAREN exp . opt_exp RPAREN
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+    (51) opt_exp -> . COMMA exp opt_exp
+    (52) opt_exp -> . empty
+    (54) empty -> .
+
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+    COMMA           shift and go to state 146
+    RPAREN          reduce using rule 54 (empty -> .)
+
+    opt_exp                        shift and go to state 144
+    empty                          shift and go to state 145
+
+state 142
+
+    (27) statement -> IF LPAREN exp RPAREN statement ELSE statement .
+
+    LBRACE          reduce using rule 27 (statement -> IF LPAREN exp RPAREN statement ELSE statement .)
+    IF              reduce using rule 27 (statement -> IF LPAREN exp RPAREN statement ELSE statement .)
+    WHILE           reduce using rule 27 (statement -> IF LPAREN exp RPAREN statement ELSE statement .)
+    SYSTEM_PRINTLN  reduce using rule 27 (statement -> IF LPAREN exp RPAREN statement ELSE statement .)
+    IDENTIFIER      reduce using rule 27 (statement -> IF LPAREN exp RPAREN statement ELSE statement .)
+    RETURN          reduce using rule 27 (statement -> IF LPAREN exp RPAREN statement ELSE statement .)
+    RBRACE          reduce using rule 27 (statement -> IF LPAREN exp RPAREN statement ELSE statement .)
+    ELSE            reduce using rule 27 (statement -> IF LPAREN exp RPAREN statement ELSE statement .)
+
+
+state 143
+
+    (31) statement -> identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON .
+
+    LBRACE          reduce using rule 31 (statement -> identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON .)
+    IF              reduce using rule 31 (statement -> identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON .)
+    WHILE           reduce using rule 31 (statement -> identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON .)
+    SYSTEM_PRINTLN  reduce using rule 31 (statement -> identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON .)
+    IDENTIFIER      reduce using rule 31 (statement -> identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON .)
+    RETURN          reduce using rule 31 (statement -> identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON .)
+    RBRACE          reduce using rule 31 (statement -> identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON .)
+    ELSE            reduce using rule 31 (statement -> identifier LBRACKET exp RBRACKET ATTR exp SEMICOLON .)
+
+
+state 144
+
+    (41) exp -> exp DOT identifier LPAREN exp opt_exp . RPAREN
+
+    RPAREN          shift and go to state 147
+
+
+state 145
+
+    (52) opt_exp -> empty .
+
+    RPAREN          reduce using rule 52 (opt_exp -> empty .)
+
+
+state 146
+
+    (51) opt_exp -> COMMA . exp opt_exp
+    (34) exp -> . exp AND exp
+    (35) exp -> . exp LESSTHAN exp
+    (36) exp -> . exp PLUS exp
+    (37) exp -> . exp MINUS exp
+    (38) exp -> . exp TIMES exp
+    (39) exp -> . exp LBRACKET exp RBRACKET
+    (40) exp -> . exp DOT LENGTH
+    (41) exp -> . exp DOT identifier LPAREN exp opt_exp RPAREN
+    (42) exp -> . INTEGER
+    (43) exp -> . TRUE
+    (44) exp -> . FALSE
+    (45) exp -> . identifier
+    (46) exp -> . THIS
+    (47) exp -> . NEW INT LBRACKET exp RBRACKET
+    (48) exp -> . NEW identifier LPAREN RPAREN
+    (49) exp -> . NOT exp
+    (50) exp -> . LPAREN exp RPAREN
+    (53) identifier -> . IDENTIFIER
+
+    INTEGER         shift and go to state 87
+    TRUE            shift and go to state 86
+    FALSE           shift and go to state 89
+    THIS            shift and go to state 90
+    NEW             shift and go to state 85
+    NOT             shift and go to state 92
+    LPAREN          shift and go to state 88
+    IDENTIFIER      shift and go to state 8
+
+    identifier                     shift and go to state 93
+    exp                            shift and go to state 148
+
+state 147
+
+    (41) exp -> exp DOT identifier LPAREN exp opt_exp RPAREN .
+
+    RPAREN          reduce using rule 41 (exp -> exp DOT identifier LPAREN exp opt_exp RPAREN .)
+    AND             reduce using rule 41 (exp -> exp DOT identifier LPAREN exp opt_exp RPAREN .)
+    LESSTHAN        reduce using rule 41 (exp -> exp DOT identifier LPAREN exp opt_exp RPAREN .)
+    PLUS            reduce using rule 41 (exp -> exp DOT identifier LPAREN exp opt_exp RPAREN .)
+    MINUS           reduce using rule 41 (exp -> exp DOT identifier LPAREN exp opt_exp RPAREN .)
+    TIMES           reduce using rule 41 (exp -> exp DOT identifier LPAREN exp opt_exp RPAREN .)
+    LBRACKET        reduce using rule 41 (exp -> exp DOT identifier LPAREN exp opt_exp RPAREN .)
+    DOT             reduce using rule 41 (exp -> exp DOT identifier LPAREN exp opt_exp RPAREN .)
+    SEMICOLON       reduce using rule 41 (exp -> exp DOT identifier LPAREN exp opt_exp RPAREN .)
+    RBRACKET        reduce using rule 41 (exp -> exp DOT identifier LPAREN exp opt_exp RPAREN .)
+    COMMA           reduce using rule 41 (exp -> exp DOT identifier LPAREN exp opt_exp RPAREN .)
+
+
+state 148
+
+    (51) opt_exp -> COMMA exp . opt_exp
+    (34) exp -> exp . AND exp
+    (35) exp -> exp . LESSTHAN exp
+    (36) exp -> exp . PLUS exp
+    (37) exp -> exp . MINUS exp
+    (38) exp -> exp . TIMES exp
+    (39) exp -> exp . LBRACKET exp RBRACKET
+    (40) exp -> exp . DOT LENGTH
+    (41) exp -> exp . DOT identifier LPAREN exp opt_exp RPAREN
+    (51) opt_exp -> . COMMA exp opt_exp
+    (52) opt_exp -> . empty
+    (54) empty -> .
+
+    AND             shift and go to state 111
+    LESSTHAN        shift and go to state 105
+    PLUS            shift and go to state 109
+    MINUS           shift and go to state 106
+    TIMES           shift and go to state 110
+    LBRACKET        shift and go to state 104
+    DOT             shift and go to state 107
+    COMMA           shift and go to state 146
+    RPAREN          reduce using rule 54 (empty -> .)
+
+    opt_exp                        shift and go to state 149
+    empty                          shift and go to state 145
+
+state 149
+
+    (51) opt_exp -> COMMA exp opt_exp .
+
+    RPAREN          reduce using rule 51 (opt_exp -> COMMA exp opt_exp .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for PUBLIC in state 18 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 25 resolved as shift
+WARNING: shift/reduce conflict for LBRACE in state 59 resolved as shift
+WARNING: shift/reduce conflict for IF in state 59 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 59 resolved as shift
+WARNING: shift/reduce conflict for SYSTEM_PRINTLN in state 59 resolved as shift
+WARNING: shift/reduce conflict for IDENTIFIER in state 59 resolved as shift
+WARNING: shift/reduce conflict for AND in state 112 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 112 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 112 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 112 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 112 resolved as shift
+WARNING: shift/reduce conflict for LBRACKET in state 112 resolved as shift
+WARNING: shift/reduce conflict for DOT in state 112 resolved as shift
+WARNING: shift/reduce conflict for AND in state 122 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 122 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 122 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 122 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 122 resolved as shift
+WARNING: shift/reduce conflict for LBRACKET in state 122 resolved as shift
+WARNING: shift/reduce conflict for DOT in state 122 resolved as shift
+WARNING: shift/reduce conflict for AND in state 123 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 123 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 123 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 123 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 123 resolved as shift
+WARNING: shift/reduce conflict for LBRACKET in state 123 resolved as shift
+WARNING: shift/reduce conflict for DOT in state 123 resolved as shift
+WARNING: shift/reduce conflict for AND in state 127 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 127 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 127 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 127 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 127 resolved as shift
+WARNING: shift/reduce conflict for LBRACKET in state 127 resolved as shift
+WARNING: shift/reduce conflict for DOT in state 127 resolved as shift
+WARNING: shift/reduce conflict for AND in state 128 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 128 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 128 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 128 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 128 resolved as shift
+WARNING: shift/reduce conflict for LBRACKET in state 128 resolved as shift
+WARNING: shift/reduce conflict for DOT in state 128 resolved as shift
+WARNING: shift/reduce conflict for AND in state 129 resolved as shift
+WARNING: shift/reduce conflict for LESSTHAN in state 129 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 129 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 129 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 129 resolved as shift
+WARNING: shift/reduce conflict for LBRACKET in state 129 resolved as shift
+WARNING: shift/reduce conflict for DOT in state 129 resolved as shift
+WARNING: reduce/reduce conflict in state 20 resolved using rule (classbody -> vardeclaration_star)
+WARNING: rejected rule (empty -> <empty>) in state 20
+WARNING: reduce/reduce conflict in state 24 resolved using rule (vardeclaration_star -> empty)
+WARNING: rejected rule (methoddeclaration_star -> empty) in state 24
+WARNING: reduce/reduce conflict in state 65 resolved using rule (methodbody -> vardeclaration_star)
+WARNING: rejected rule (empty -> <empty>) in state 65
+WARNING: reduce/reduce conflict in state 67 resolved using rule (vardeclaration_star -> empty)
+WARNING: rejected rule (statement_star -> empty) in state 67
